@@ -1,76 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stake Mines Game</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <style>
-        .cell {
-            width: 50px;
-            height: 50px;
-        }
-        .preview-cell {
-            width: 50px;
-            height: 50px;
-            display: inline-block;
-            margin: 1px;
-        }
-        .preview-container {
-            position: relative;
-            width: 150px;
-            height: 150px;
-            overflow: hidden;
-            background-color: #e5e7eb;
-            border: 1px solid #d1d5db;
-        }
-        .preview-cell.red {
-            background-color: red;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mines Game</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .cell {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .preview-cell {
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      margin: 1px;
+    }
+
+    .preview-container {
+      position: relative;
+      overflow: hidden;
+      background-color: #e5e7eb;
+      border: 1px solid #d1d5db;
+    }
+  </style>
 </head>
-<body class="bg-gray-100">
-  
-<header class="bg-blue-400 p-2 w-full flex items-center justify-between">
-  <h1 class="font-bold">Indo-Games</h1>
-  <label class="flex items-center">Balance -
-    <span id="balance" class="block px-2 py-1 text-black">1000</span>
-  </label>
-</header>
 
-<div class="max-w-xl mx-auto p-6 rounded shadow-md">
-    <div class="mb-4">
-        <label for="betAmount" class="block text-sm font-medium text-gray-700">Bet Amount:</label>
-        <div class="mb-4 flex justify-between items-center">
-            <input type="number" id="betAmount" class="mt-1 p-2 border border-gray-300 rounded w-fit">
-            <button id="startGame" class="w-fit p-2 bg-blue-500 text-white font-bold rounded hover:bg-blue-700">Start</button>
-        </div>
-    </div>
-    
-    <div class="mb-4">
-        <span class="block text-sm font-medium text-gray-700">Potential Payout:</span>
-        <div class="mb-4 flex justify-between items-center">
-            <span id="potentialPayout" class="block text-xl font-bold text-green-600">0</span>
-            <button id="cashout" class="w-fit p-2 bg-blue-500 text-white font-bold rounded hover:bg-blue-700">Cashout</button>
-        </div>
-    </div>
-    
-    <div class="mb-4">
-        <span class="block text-sm font-medium text-gray-700">Hint</span>
-        <div id="patternBox" class="mt-2 preview-container">
-            <!-- Red cell cluster will be rendered here -->
-        </div>
-    </div>
-    
-    <div>
-        <span class="block text-sm font-medium text-gray-700">Game Grid:</span>
-        <div id="gameGrid" class="grid grid-cols-5 gap-2 mt-2">
-            <!-- Game cells will be rendered here -->
-        </div>
-    </div>
-</div>
+<body class="bg-gray-900 text-white min-h-screen flex flex-col items-center justify-between">
 
-<script>
+  <!-- Header -->
+  <header class="bg-blue-600 w-full p-4 flex items-center justify-between">
+    <h1 class="font-bold text-lg">Indo-Games</h1>
+    <label class="flex items-center">Balance -
+      <span id="balance" class="block px-2 py-1 text-black bg-white rounded ml-2">1000</span>
+    </label>
+  </header>
+
+  <!-- Main Game Section -->
+  <main class="flex-1 w-full p-4 flex flex-col items-center">
+    <!-- Hint + Bet and Payout Section -->
+    <div class="w-full gap-2 flex justify-between items-start mb-4">
+      <!-- Hint Section -->
+      <div class="flex flex-col justify-center items-center">
+        <span class="block text-sm font-medium">Hint:</span>
+        <div id="patternBox" class="preview-container mt-2 w-24 h-24">
+          <!-- Red cell cluster will be rendered here -->
+        </div>
+      </div>
+      <!-- Bet and Payout Section -->
+      <div class="flex flex-col items-center">
+        <!-- Bet Section -->
+        <div class="mb-2">
+          <label for="betAmount" class="block text-sm font-medium">Bet Amount:</label>
+          <div class="flex justify-between items-center mt-1">
+            <input type="number" id="betAmount" class="p-2 w-32 border border-gray-300 rounded text-black">
+            <button id="startGame" class="ml-2 w-24 p-2 bg-blue-500 text-white font-bold rounded hover:bg-blue-700">Start</button>
+          </div>
+        </div>
+        <!-- Payout Section -->
+        <div class="mb-2">
+          <span class="block text-sm font-medium">Potential Payout:</span>
+          <div class="flex justify-between items-center mt-1">
+            <span id="potentialPayout" class="border rounded p-1 w-32 block text-xl font-bold text-green-400">0</span>
+            <button id="cashout" class="ml-2 w-24 p-2 bg-blue-500 text-white font-bold rounded hover:bg-blue-700">Cashout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Game Grid Section -->
+    <div class="w-full flex flex-col items-center">
+      <span class="block text-sm font-medium">Game Grid:</span>
+      <div id="gameGrid" class="grid grid-cols-5 gap-2 mt-2">
+        <!-- Game cells will be rendered here -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-blue-600 w-full p-4 text-center">
+    <p class="text-sm">&copy; 2024 Indo-Games. All rights reserved.</p>
+  </footer>
+
+  <script>
     // Game configuration
     const numRows = 5;
     const numCols = 5;
@@ -91,152 +108,183 @@
 
     // Helper function to generate a connected pattern of red cells
     function generateRedCellPattern() {
-        let grid = Array.from({ length: numRows }, () => Array(numCols).fill(0));
-        let redCells = [[Math.floor(Math.random() * numRows), Math.floor(Math.random() * numCols)]];
-        grid[redCells[0][0]][redCells[0][1]] = 1;
+      let grid = Array.from({ length: numRows }, () => Array(numCols).fill(0));
+      let redCells = [[Math.floor(Math.random() * numRows), Math.floor(Math.random() * numCols)]];
+      grid[redCells[0][0]][redCells[0][1]] = 1;
 
-        while (redCells.length < numRedCells) {
-            const [row, col] = redCells[Math.floor(Math.random() * redCells.length)];
-            const directions = [[0, 1], [1, 0], [0, -1], [-1, 0]];
-            directions.sort(() => Math.random() - 0.5);
+      while (redCells.length < numRedCells) {
+        const [row, col] = redCells[Math.floor(Math.random() * redCells.length)];
+        const directions = [[0, 1], [1, 0], [0, -1], [-1, 0]];
+        directions.sort(() => Math.random() - 0.5);
 
-            for (const [dr, dc] of directions) {
-                const newRow = row + dr;
-                const newCol = col + dc;
-                if (newRow >= 0 && newRow < numRows && newCol >= 0 && newCol < numCols && grid[newRow][newCol] === 0) {
-                    grid[newRow][newCol] = 1;
-                    redCells.push([newRow, newCol]);
-                    break;
-                }
-            }
+        for (const [dr, dc] of directions) {
+          const newRow = row + dr;
+          const newCol = col + dc;
+          if (newRow >= 0 && newRow < numRows && newCol >= 0 && newCol < numCols && grid[newRow][newCol] === 0) {
+            grid[newRow][newCol] = 1;
+            redCells.push([newRow, newCol]);
+            break;
+          }
         }
+      }
 
-        return grid;
+      return grid;
     }
 
     // Helper function to extract the shape of the red cell cluster
     function extractRedCellCluster(pattern) {
-        const cluster = [];
-        pattern.forEach((row, rowIndex) => {
-            row.forEach((cell, colIndex) => {
-                if (cell === 1) cluster.push([rowIndex, colIndex]);
-            });
+      const cluster = [];
+      pattern.forEach((row, rowIndex) => {
+        row.forEach((cell, colIndex) => {
+          if (cell === 1) cluster.push([rowIndex, colIndex]);
         });
-        return cluster;
+      });
+      return cluster;
     }
 
     // Initialize the red cell pattern preview
     function renderPatternBox(pattern) {
-        const cluster = extractRedCellCluster(pattern);
-        redCellCluster = cluster;
-        
-        // Find the bounding box of the red cell cluster
-        const minX = Math.min(...cluster.map(([row]) => row));
-        const maxX = Math.max(...cluster.map(([row]) => row));
-        const minY = Math.min(...cluster.map(([, col]) => col));
-        const maxY = Math.max(...cluster.map(([, col]) => col));
+      const cluster = extractRedCellCluster(pattern);
+      redCellCluster = cluster;
 
-        const previewWidth = maxY - minY + 1;
-        const previewHeight = maxX - minX + 1;
+      // Find the bounding box of the red cell cluster
+      const minX = Math.min(...cluster.map(([row]) => row));
+      const maxX = Math.max(...cluster.map(([row]) => row));
+      const minY = Math.min(...cluster.map(([, col]) => col));
+      const maxY = Math.max(...cluster.map(([, col]) => col));
 
-        patternBox.innerHTML = '';
-        cluster.forEach(([row, col]) => {
-            const cellDiv = document.createElement('div');
-            cellDiv.classList.add('preview-cell', 'border', 'border-gray-300', 'absolute');
-            cellDiv.style.left = `${(col - minY) * 50}px`; // Adjust to cropped area
-            cellDiv.style.top = `${(row - minX) * 50}px`; // Adjust to cropped area
-            cellDiv.classList.add('red');
-            patternBox.appendChild(cellDiv);
-        });
+      const previewWidth = maxY - minY + 1;
+      const previewHeight = maxX - minX + 1;
 
-        // Adjust preview container size based on bounding box
-        patternBox.style.width = `${previewWidth * 50}px`;
-        patternBox.style.height = `${previewHeight * 50}px`;
+      patternBox.innerHTML = '';
+      cluster.forEach(([row, col]) => {
+        const cellDiv = document.createElement('div');
+        cellDiv.classList.add('preview-cell', 'border', 'border-gray-300', 'absolute');
+        cellDiv.style.left = `${(col - minY) * 20}px`; // Adjust to cropped area
+        cellDiv.style.top = `${(row - minX) * 20}px`; // Adjust to cropped area
+        cellDiv.style.backgroundColor = 'red';
+        patternBox.appendChild(cellDiv);
+      });
+
+      // Adjust preview container size based on bounding box
+      patternBox.style.width = `${previewWidth * 20}px`;
+      patternBox.style.height = `${previewHeight * 20}px`;
     }
 
     // Initialize the game grid
     function renderGameGrid(pattern) {
-        gameGrid.innerHTML = '';
-        pattern.forEach((row, rowIndex) => {
-            row.forEach((cell, colIndex) => {
-                const cellDiv = document.createElement('div');
-                cellDiv.classList.add('cell', 'border', 'border-gray-300', 'rounded', 'cursor-pointer');
-                cellDiv.addEventListener('click', () => revealCell(cellDiv, rowIndex, colIndex));
-                gameGrid.appendChild(cellDiv);
-            });
+      gameGrid.innerHTML = '';
+      pattern.forEach((row, rowIndex) => {
+        row.forEach((cell, colIndex) => {
+          const cellDiv = document.createElement('div');
+          cellDiv.classList.add('cell', 'border', 'border-gray-300', 'bg-gray-100', 'cursor-pointer');
+          cellDiv.dataset.row = rowIndex;
+          cellDiv.dataset.col = colIndex;
+          cellDiv.addEventListener('click', onCellClick);
+          gameGrid.appendChild(cellDiv);
         });
+      });
     }
 
-    // Reveal all red cells
-    function revealRedCells() {
-        redCellCluster.forEach(([row, col]) => {
-            const redCellDiv = gameGrid.children[row * numCols + col];
-            redCellDiv.style.backgroundColor = 'red';
-        });
+    // Handle cell click event
+    function onCellClick(event) {
+      const cell = event.target;
+      const row = parseInt(cell.dataset.row, 10);
+      const col = parseInt(cell.dataset.col, 10);
+
+      if (redCellPattern[row][col] === 1) {
+        cell.classList.add('bg-red-500');
+        alert('Game Over! You clicked on a red cell.');
+        revealAllCells(); // Reveal all cells before ending the game
+        endGame();
+      } else {
+        const multiplier = (Math.random() * 1.5 + 0.5).toFixed(2); // Random multiplier between 0.5 and 2
+        cell.classList.add('bg-green-500');
+        cell.innerText = `x${multiplier}`;
+        updatePotentialPayout(parseFloat(multiplier));
+      }
+
+      // Disable further clicks on this cell
+      cell.removeEventListener('click', onCellClick);
     }
 
-    // Reveal cell on click
-    function revealCell(cellDiv, rowIndex, colIndex) {
-        if (redCellPattern[rowIndex][colIndex] === 1) {
-            revealRedCells(); // Reveal all red cells
-            alert('You hit a red cell! Game over.');
+    // Reveal all cells in the grid
+    function revealAllCells() {
+      Array.from(gameGrid.children).forEach(cell => {
+        const row = parseInt(cell.dataset.row, 10);
+        const col = parseInt(cell.dataset.col, 10);
+        if (redCellPattern[row][col] === 1) {
+          cell.classList.add('bg-red-500');
         } else {
-            const multiplier = Math.random() * 2; // Random multiplier for green cells
-            cellDiv.style.backgroundColor = 'green';
-            cellDiv.innerText = multiplier.toFixed(2);
-            updatePotentialPayout(multiplier);
+          cell.classList.add('bg-green-500');
+          const multiplier = (Math.random() * 1.5 + 0.5).toFixed(2);
+          cell.innerText = `x${multiplier}`;
         }
+      });
     }
 
-    // Update potential payout
+    // Update potential payout display
     function updatePotentialPayout(multiplier) {
-        const betAmount = parseFloat(betAmountInput.value) || 0;
-        const currentPayout = parseFloat(potentialPayout.innerText) || 0;
-        potentialPayout.innerText = (currentPayout + (betAmount * multiplier)).toFixed(2);
+      const currentPayout = parseFloat(potentialPayout.innerText);
+      const newPayout = (currentPayout + (currentBet * multiplier)).toFixed(2);
+      potentialPayout.innerText = newPayout;
     }
 
-    // Start game event
-    startGameButton.addEventListener('click', () => {
-        const betAmount = parseFloat(betAmountInput.value) || 0;
-        const balance = parseFloat(balanceElement.innerText) || 0;
+    // Handle start game event
+    function startGame() {
+      currentBet = parseFloat(betAmountInput.value);
+      if (isNaN(currentBet) || currentBet <= 0) {
+        alert('Please enter a valid bet amount.');
+        return;
+      }
 
-        if (betAmount <= 0) {
-            alert('Please enter a valid bet amount.');
-            return;
-        }
+      const currentBalance = parseFloat(balanceElement.innerText);
+      if (currentBet > currentBalance) {
+        alert('Insufficient balance.');
+        return;
+      }
 
-        if (betAmount > balance) {
-            alert('Insufficient balance.');
-            return;
-        }
+      // Deduct bet amount from balance
+      balanceElement.innerText = (currentBalance - currentBet).toFixed(2);
+      potentialPayout.innerText = '0';
 
-        // Deduct the bet amount from the balance
-        balanceElement.innerText = (balance - betAmount).toFixed(2);
-        currentBet = betAmount;
+      // Generate new red cell pattern and render it
+      redCellPattern = generateRedCellPattern();
+      renderPatternBox(redCellPattern);
+      renderGameGrid(redCellPattern);
 
-        redCellPattern = generateRedCellPattern();
-        renderPatternBox(redCellPattern);
-        renderGameGrid(redCellPattern);
-        potentialPayout.innerText = '0';
-    });
+      // Disable start button
+      startGameButton.disabled = true;
+      cashoutButton.disabled = false;
+    }
 
-    // Cashout event
-    cashoutButton.addEventListener('click', () => {
-        const payout = parseFloat(potentialPayout.innerText) || 0;
-        const balance = parseFloat(balanceElement.innerText) || 0;
+    // Handle cashout event
+    function cashout() {
+      const payout = parseFloat(potentialPayout.innerText);
+      const currentBalance = parseFloat(balanceElement.innerText);
+      balanceElement.innerText = (currentBalance + payout).toFixed(2);
 
-        if (currentBet === 0) {
-            alert('No game in progress.');
-            return;
-        }
+      alert(`You cashed out with a payout of ${payout.toFixed(2)}`);
+      endGame();
+    }
 
-        // Add potential payout to balance
-        balanceElement.innerText = (balance + parseFloat(potentialPayout.innerText)).toFixed(2);
-        potentialPayout.innerText = '0';
-        currentBet = 0;
-        gameGrid.innerHTML = '';
-        patternBox.innerHTML = '';
-    });
-</script>
+    // End the current game
+    function endGame() {
+      startGameButton.disabled = false;
+      cashoutButton.disabled = true;
+      potentialPayout.innerText = '0';
+      betAmountInput.value = '';
+    }
+
+    // Attach event listeners
+    startGameButton.addEventListener('click', startGame);
+    cashoutButton.addEventListener('click', cashout);
+
+    // Initialize the game
+    redCellPattern = generateRedCellPattern();
+    renderPatternBox(redCellPattern);
+    renderGameGrid(redCellPattern);
+  </script>
 </body>
+
 </html>
